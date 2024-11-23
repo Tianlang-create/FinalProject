@@ -1,0 +1,5 @@
+Sanctuary: 避难所
+hello: 你好
+world: 世界
+opponent: 对手
+love: 爱情
