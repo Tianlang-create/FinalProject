@@ -6,7 +6,7 @@ import java.util.*;
 import static java.lang.Integer.parseInt;
 
 public class Function1_Server {
-    private static final int PORT = 0000;
+    private static final int PORT = 3000;
     private static Map<String, String> wordMap = new HashMap<>();
     private static String nickname = null;
     private static PrintWriter out;
@@ -120,6 +120,6 @@ public class Function1_Server {
 
         }
     public static void main(String[] args) {
-        Function2_Server server = new Function2_Server();}
+        Function1_Server server = new Function1_Server();}
 }
 

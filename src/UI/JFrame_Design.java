@@ -1,7 +1,6 @@
 package UI;
 
-import ModesAndServer.FirstMode;
-import ModesAndServer.Function2_Server;
+import ModesAndServer.*;
 import Tools.*;
 import javax.swing.*;
 
@@ -38,16 +37,19 @@ public class JFrame_Design extends JFrame {
             int option = JOptionPane.showOptionDialog(null, "请选择游戏模式", "游戏模式选择", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             if (option == 0) {
                 System.out.println("选择了模式一");
-                set();
+                set(1);
                 new FirstMode(nickName).setVisible(true);
                 break;
             } else if (option == 1) {
                 System.out.println("选择了模式二");
+                set(2);
+                new SecondMode(nickName).setVisible(true);
                 break;
             }
             else if (option == 2) {
                 System.out.println("选择了导出我错的词");
-                break;
+                FileCopy fc=new FileCopy();
+                System.out.println("导出成功");
             }
             else if (option == 3) {
                 System.out.println("选择了退出");
@@ -55,9 +57,12 @@ public class JFrame_Design extends JFrame {
             }
     }}
 
-    public void set() {
+    public void set(int i) {
          new Thread(()->{
-             new Function2_Server();
+             if(i==1)
+                new Function1_Server();
+             else if(i==2)
+                 new Function2_Server();;
          }).start();
          try {
              Thread.sleep(1000);

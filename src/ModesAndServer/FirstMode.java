@@ -10,7 +10,7 @@ import static Tools.CountUserScore.saveUserData;
 
 public class FirstMode extends JFrame {
     private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 0000;
+    private static final int SERVER_PORT = 3000;
     //public JFrame_Design jfd=new JFrame_Design();
     private JLabel chineseLabel;
     private JLabel hintLabel;

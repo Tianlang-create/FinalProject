@@ -1,149 +1,131 @@
 package ModesAndServer;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.*;
+import java.net.Socket;
 
-public class SecondMode extends JFrame {
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 5000;
-
-    private JLabel englishLabel;
-    private JButton[] optionButtons;
-    private JLabel scoreLabel;
-    private JLabel timerLabel;
-    private JLabel messageLabel;
-
+public class SecondMode extends JFrame implements ActionListener {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+    private JLabel wordLabel;
+    private JButton[] optionButtons = new JButton[4];
+    private int currentScore = 0;
+    private String correctAnswer = "";
 
-    private Timer timer;
-    private int timeLeft;
-
-    public SecondMode() {
-        setTitle("考研单词记忆游戏");
+    public SecondMode(String nickname) {
+        setTitle(nickname+"欢迎来到模式二");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(7, 1));
+        setLayout(new BorderLayout());
 
-        englishLabel = new JLabel("", SwingConstants.CENTER);
-        englishLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        optionButtons = new JButton[4];
-        for (int i = 0; i < 4; i++) {
-            optionButtons[i] = new JButton();
-            optionButtons[i].addActionListener(e -> submitAnswer(e.getActionCommand()));
+        // 创建并设置UI组件
+        wordLabel = new JLabel("等待服务器发送单词...", SwingConstants.CENTER);
+        add(wordLabel, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 4));
+        for (int i = 0; i < optionButtons.length; i++) {
+            optionButtons[i] = new JButton("选项 " + (char)('A' + i + 1));
+            optionButtons[i].setFont(new Font("Dialog", Font.PLAIN, 28));
+            optionButtons[i].addActionListener(this);
+            buttonPanel.add(optionButtons[i]);
         }
-        JPanel optionsPanel = new JPanel(new GridLayout(2, 2));
-        for (JButton button : optionButtons) {
-            optionsPanel.add(button);
-        }
-        scoreLabel = new JLabel("得分: 10", SwingConstants.CENTER);
-        timerLabel = new JLabel("", SwingConstants.CENTER);
-        messageLabel = new JLabel("", SwingConstants.CENTER);
+        add(buttonPanel, BorderLayout.CENTER);
 
-        add(englishLabel);
-        add(optionsPanel);
-        add(scoreLabel);
-        add(timerLabel);
-        add(messageLabel);
-
-        timer = new Timer(1000, e -> updateTimer());
-
-        connectToServer();
-    }
-
-    private void connectToServer() {
+        // 连接到服务器
         try {
-            socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            socket = new Socket("localhost", 5000);
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
-            new Thread(this::playGame).start();
+            // 启动一个线程来监听服务器的消息
+            new Thread(() -> {
+                try {
+                    while (true) {
+                        String message = in.readLine();
+                        if (message == null) break;
+                        handleMessage(message);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "与服务器断开连接！");
+                    System.exit(1);
+                }
+            }).start();
+
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "无法连接到服务器！");
+            System.exit(1);
         }
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    private void playGame() {
-        try {
-            String line;
-            while ((line = in.readLine()) != null) {
-                if (line.equals("GAMEOVER")) {
-                    SwingUtilities.invokeLater(() -> {
-                        JOptionPane.showMessageDialog(this, "游戏结束！");
-                        System.exit(0);
-                    });
-                    break;
+    private void handleMessage(String message) {
+        if (message.startsWith("CORRECT,")) {
+            InitBottons();
+            String[] parts = message.split(",");
+            currentScore = Integer.parseInt(parts[1]);
+            JOptionPane.showMessageDialog(this, "回答正确！当前得分：" + currentScore);
+        } else if (message.startsWith("TIMEOUT,")) {
+            InitBottons();
+            String[] parts = message.split(",");
+            currentScore = Integer.parseInt(parts[1]);
+            correctAnswer = parts[2];
+            JOptionPane.showMessageDialog(this, "回答超时！正确答案：" + correctAnswer + "。当前得分：" + currentScore);
+        } else if (message.startsWith("WRONG,")) {
+            InitBottons();
+            String[] parts = message.split(",");
+            currentScore = Integer.parseInt(parts[1]);
+            correctAnswer = parts[2];
+            JOptionPane.showMessageDialog(this, "回答错误！正确答案：" + correctAnswer + "。当前得分：" + currentScore);
+        } else if (!message.equals("GAMEOVER")) {
+            // 这里处理服务器发送的单词和选项
+            if (wordLabel.getText().equals("等待服务器发送单词...")) {
+                // 第一个消息是英文单词
+                wordLabel.setText(message);
+                wordLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+            } else {
+                // 后续的消息是选项
+                for (int i = 0; i < optionButtons.length; i++) {
+                    if (optionButtons[i].getText().startsWith("选项 ")) {
+                        optionButtons[i].setText(message);
+                        break;
+                    }
                 }
-                String english = line;
-                String[] options = new String[4];
-                for (int i = 0; i < 4; i++) {
-                    options[i] = in.readLine();
-                }
-                SwingUtilities.invokeLater(() -> {
-                    englishLabel.setText(english);
-                    for (int i = 0; i < 4; i++) {
-                        optionButtons[i].setText((char)('A' + i) + ". " + options[i]);
-                        optionButtons[i].setActionCommand(String.valueOf((char)('A' + i)));
-                        optionButtons[i].setEnabled(true);
-                    }
-                    messageLabel.setText("");
-                    timeLeft = 10;
-                    timerLabel.setText("剩余时间: " + timeLeft + "秒");
-                    timer.start();
-                });
-
-                String result = in.readLine();
-                String[] parts = result.split(",");
-                SwingUtilities.invokeLater(() -> {
-                    timer.stop();
-                    for (JButton button : optionButtons) {
-                        button.setEnabled(false);
-                    }
-                    scoreLabel.setText("得分: " + parts[1]);
-                    if (parts[0].equals("CORRECT")) {
-                        messageLabel.setText("恭喜回答正确！");
-                    } else if (parts[0].equals("WRONG")) {
-                        messageLabel.setText("回答错误，答案是 " + parts[2]);
-                    } else if (parts[0].equals("TIMEOUT")) {
-                        messageLabel.setText("您没有回答，正确答案是 " + parts[2]);
-                    }
-                });
-
-                Thread.sleep(2000);  // 暂停2秒，显示结果
             }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+        } else {
+            // 游戏结束
+            JOptionPane.showMessageDialog(this, "游戏结束！最终得分：" + currentScore);
+            System.exit(0);
         }
     }
 
-    private void submitAnswer(String answer) {
-        out.println(answer);
-        timer.stop();
-        for (JButton button : optionButtons) {
-            button.setEnabled(false);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < optionButtons.length; i++) {
+            if (e.getSource() == optionButtons[i]) {
+                String selectedAnswer = optionButtons[i].getText();
+                out.println(selectedAnswer);
+                break;
+            }
         }
     }
-
-    private void updateTimer() {
-        timeLeft--;
-        timerLabel.setText("剩余时间: " + timeLeft + "秒");
-        if (timeLeft == 0) {
-            timer.stop();
-            out.println("");  // 发送空字符串表示超时
-            for (JButton button : optionButtons) {
-                button.setEnabled(false);
-            }
+    public void InitBottons(){
+        wordLabel.setText("等待服务器发送单词...");
+        for (int i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].setText("选项 " + (char)('A' + i));
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new SecondMode().setVisible(true);
-        });
+        // 替换为服务器的实际地址和端口号
+        new SecondMode("admin");
     }
 }
-
-
