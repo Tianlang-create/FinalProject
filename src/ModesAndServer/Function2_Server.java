@@ -88,15 +88,15 @@ public class Function2_Server {
                     if (answer.equals(chinese)) {
                         score++;
                         out.println("CORRECT," + score);
-                        WriteCorrectWords(english,"src/Data/掌握单词.txt");
+                        WriteCorrectWords(english,chinese,"src/Data/掌握单词.txt");
                     } else if (answer.isEmpty()) {
                         score--;
                         out.println("TIMEOUT," + score + "," + chinese);
-                        WriteUncorrectWords("未答单词",english,"src/Data/未掌握单词.txt");
+                        WriteUncorrectWords("未答单词",english,chinese,"src/Data/未掌握单词.txt");
                     } else {
                         score -= 2;
                         out.println("WRONG," + score + "," + chinese);
-                        WriteUncorrectWords("答错单词",english,"src/Data/未掌握单词.txt");
+                        WriteUncorrectWords("答错单词",english,chinese,"src/Data/未掌握单词.txt");
                     }
                 }
                 // 游戏结束，发送结束消息给客户端
@@ -139,21 +139,44 @@ public class Function2_Server {
         }
     }
 
-    public static void WriteUncorrectWords(String str1, String str2, String filePath){
+    public static void WriteUncorrectWords(String str1, String str2, String str3, String filePath){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(str1+":"+str2);
-            writer.newLine();
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
-    public static void WriteCorrectWords(String str1, String filePath){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(str1);
-            writer.newLine();
+            String line = str1 + ":" + str2 + " " + str3;
+            if (!isDuplicate(line, filePath)) {
+                writer.write(line);
+                writer.newLine();
+            }
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 
+    public static void WriteCorrectWords(String str1,String str2, String filePath){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            if (!isDuplicate(str1, filePath)) {
+                writer.write(str1+" "+str2);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    private static boolean isDuplicate(String line, String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String existingLine;
+            while ((existingLine = reader.readLine()) != null) {
+                if (existingLine.equals(line)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Function2_Server server = new Function2_Server();
+    }
 }

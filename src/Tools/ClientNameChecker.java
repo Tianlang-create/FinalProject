@@ -19,8 +19,7 @@ public class ClientNameChecker {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
                     String name = parts[1].trim();
-                    String Flag =parts[0].trim();
-                    if (name.equals(username) && Flag.equals("Username")) {
+                    if (name.equals(username)) {
                         System.out.println("重复用户名: " + name);
                         RebulidDirecter rd=new RebulidDirecter();
                         this.NameFlag=rd.NameFlag;

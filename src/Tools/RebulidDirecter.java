@@ -16,10 +16,8 @@ public class RebulidDirecter {
         //保留
         if(input.equals("keep")){
             NameFlag=true;
-            System.out.println("测试点1");
         }
         else {
-            System.out.println("测试点2");
             NameFlag=false;
         }
     }

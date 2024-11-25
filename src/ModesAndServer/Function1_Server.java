@@ -8,7 +8,7 @@ import static java.lang.Integer.parseInt;
 public class Function1_Server {
     private static final int PORT = 3000;
     private static Map<String, String> wordMap = new HashMap<>();
-    private static String nickname = null;
+    public static String nickname = null;
     private static PrintWriter out;
     private static BufferedReader in;
 
@@ -65,15 +65,15 @@ public class Function1_Server {
 
                     if (answer.equals(english)) {
                         score++;
-                        WriteCorrectWords(english,"src/Data/掌握单词.txt");
+                        WriteCorrectWords(english,chinese,"src/Data/掌握单词.txt");
                         out.println("CORRECT," + score);
                     } else if (answer.isEmpty()) {
                         score--;
-                        WriteUncorrectWords("未答单词",english,"src/Data/未掌握单词.txt");
+                        WriteUncorrectWords("未答单词",english,chinese,"src/Data/未掌握单词.txt");
                         out.println("TIMEOUT," + score + "," + english);
                     } else {
                         score -= 2;
-                        WriteUncorrectWords("答错单词",english,"src/Data/未掌握单词.txt");
+                        WriteUncorrectWords("答错单词",english,chinese,"src/Data/未掌握单词.txt");
                         out.println("WRONG," + score + "," + english);
                     }
                 }
@@ -101,21 +101,41 @@ public class Function1_Server {
         // 其中保留了原单词的第一个和最后一个字符
         // 中间的字符被下划线 (_) 替代。
 
-        public void WriteUncorrectWords(String str1,String str2,String filePath){
+        public static void WriteUncorrectWords(String str1, String str2, String str3, String filePath){
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-                writer.write(str1+":"+str2);
-                writer.newLine();
+                String line = str1 + ":" + str2 + " " + str3;
+                if (!isDuplicate(line, filePath)) {
+                    writer.write(line);
+                    writer.newLine();
+                }
             } catch (IOException e) {
                 System.out.println("Error writing to file: " + e.getMessage());
             }
         }
-        public void WriteCorrectWords(String str1,String filePath){
+
+        public static void WriteCorrectWords(String str1,String str2, String filePath){
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-                writer.write(str1);
-                writer.newLine();
+                if (!isDuplicate(str1, filePath)) {
+                    writer.write(str1+" "+str2);
+                    writer.newLine();
+                }
             } catch (IOException e) {
                 System.out.println("Error writing to file: " + e.getMessage());
             }
+        }
+
+        private static boolean isDuplicate(String line, String filePath) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String existingLine;
+                while ((existingLine = reader.readLine()) != null) {
+                    if (existingLine.equals(line)) {
+                        return true;
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file: " + e.getMessage());
+            }
+            return false;
         }
 
         }

@@ -6,12 +6,12 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class CountUserScore {
+public class CountUserNumber {
     private static String FILE_PATH = "";
     public static void saveUserData(String userName, int score,String filePath) {
         FILE_PATH = filePath;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            String existingScore = getExistingScore(userName);
+            String existingScore = getExistingNumber(userName,filePath);
             if (existingScore != null) {
                 updateScore(userName,(parseInt(existingScore) + score));
             } else {
@@ -23,7 +23,8 @@ public class CountUserScore {
         }
     }
 
-    private static String getExistingScore(String userName) {
+    public static String getExistingNumber(String userName,String filePath) {
+        FILE_PATH = filePath;
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {

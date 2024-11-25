@@ -4,12 +4,15 @@ import ModesAndServer.*;
 import Tools.*;
 import javax.swing.*;
 
+import java.io.IOException;
+
+import static Tools.CountUserNumber.getExistingNumber;
 import static java.lang.System.exit;
 
 public class JFrame_Design extends JFrame {
     ClientNameChecker cnc=null;
     public static String nickName = null;
-    public JFrame_Design() {
+    public JFrame_Design() throws IOException {
         nickName = JOptionPane.showInputDialog(this, "输入昵称");
         setNickName();
         if(cnc.IsDuplicate==false) {
@@ -25,16 +28,16 @@ public class JFrame_Design extends JFrame {
     public void setNickName() {
         cnc=new ClientNameChecker(nickName);
         if(cnc.NameFlag==true) {
-            System.out.println("用户保留了名字"+nickName);
+            System.out.println("用户保留了名字:"+nickName);
         }else if (cnc.IsDuplicate==true) {
             nickName = JOptionPane.showInputDialog(this, "输入昵称");
             setNickName();
         }}
 
-    public void SelectMode() {
+    public static void SelectMode()  {
         while(true) {
-            String[] options = {"模式一", "模式二","导出我错的词","退出"};
-            int option = JOptionPane.showOptionDialog(null, "请选择游戏模式", "游戏模式选择", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+            String[] options = {"单词拼写", "见词思义","导出我错的词","我的背词量","退出"};
+            int option = JOptionPane.showOptionDialog(null, "请选择模式", "欢迎你，"+nickName, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
             if (option == 0) {
                 System.out.println("选择了模式一");
                 set(1);
@@ -48,16 +51,26 @@ public class JFrame_Design extends JFrame {
             }
             else if (option == 2) {
                 System.out.println("选择了导出我错的词");
-                FileCopy fc=new FileCopy();
+                try {
+                    new ErrorWordsShow();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("导出成功");
+                break;
             }
             else if (option == 3) {
+                System.out.println("选择了我的背词量");
+                String number = getExistingNumber(nickName,"src/Data/User_Score_Data.txt");
+                JOptionPane.showMessageDialog(null, "您的背词量为" + number);
+            }
+            else if (option == 4) {
                 System.out.println("选择了退出");
                 exit(0);
             }
     }}
 
-    public void set(int i) {
+    public static void set(int i) {
          new Thread(()->{
              if(i==1)
                 new Function1_Server();
@@ -72,7 +85,7 @@ public class JFrame_Design extends JFrame {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         JFrame_Design frame = new JFrame_Design();
     }
 

@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
+import UI.*;
+
+import static ModesAndServer.Function1_Server.nickname;
+import static Tools.CountUserNumber.saveUserData;
 
 public class SecondMode extends JFrame implements ActionListener {
     private Socket socket;
@@ -15,9 +19,11 @@ public class SecondMode extends JFrame implements ActionListener {
     private int currentScore = 0;
     private String correctAnswer = "";
 
+    private String nick="";
     public SecondMode(String nickname) {
+        this.nick = nickname;
         setTitle(nickname+"欢迎来到模式二");
-        setSize(400, 300);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -29,11 +35,13 @@ public class SecondMode extends JFrame implements ActionListener {
         buttonPanel.setLayout(new GridLayout(1, 4));
         for (int i = 0; i < optionButtons.length; i++) {
             optionButtons[i] = new JButton("选项 " + (char)('A' + i + 1));
-            optionButtons[i].setFont(new Font("Dialog", Font.PLAIN, 28));
+            optionButtons[i].setFont(new Font("Dialog", Font.PLAIN, 18));
+            optionButtons[i].setPreferredSize(new Dimension(150, 50));
             optionButtons[i].addActionListener(this);
             buttonPanel.add(optionButtons[i]);
         }
         add(buttonPanel, BorderLayout.CENTER);
+        this.getDefaultCloseOperation();
 
         // 连接到服务器
         try {
@@ -67,20 +75,21 @@ public class SecondMode extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void handleMessage(String message) {
+    private void handleMessage(String message) throws IOException {
         if (message.startsWith("CORRECT,")) {
-            InitBottons();
+            InitButtons();
             String[] parts = message.split(",");
+            saveUserData(nick,1,"src/Data/User_Score_Data.txt");//统计用户回答数目
             currentScore = Integer.parseInt(parts[1]);
             JOptionPane.showMessageDialog(this, "回答正确！当前得分：" + currentScore);
         } else if (message.startsWith("TIMEOUT,")) {
-            InitBottons();
+            InitButtons();
             String[] parts = message.split(",");
             currentScore = Integer.parseInt(parts[1]);
             correctAnswer = parts[2];
             JOptionPane.showMessageDialog(this, "回答超时！正确答案：" + correctAnswer + "。当前得分：" + currentScore);
         } else if (message.startsWith("WRONG,")) {
-            InitBottons();
+            InitButtons();
             String[] parts = message.split(",");
             currentScore = Integer.parseInt(parts[1]);
             correctAnswer = parts[2];
@@ -90,7 +99,7 @@ public class SecondMode extends JFrame implements ActionListener {
             if (wordLabel.getText().equals("等待服务器发送单词...")) {
                 // 第一个消息是英文单词
                 wordLabel.setText(message);
-                wordLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+                wordLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
             } else {
                 // 后续的消息是选项
                 for (int i = 0; i < optionButtons.length; i++) {
@@ -103,7 +112,9 @@ public class SecondMode extends JFrame implements ActionListener {
         } else {
             // 游戏结束
             JOptionPane.showMessageDialog(this, "游戏结束！最终得分：" + currentScore);
-            System.exit(0);
+            // 返回主菜单
+            setVisible(false);
+            JFrame_Design.SelectMode();
         }
     }
 
@@ -117,7 +128,7 @@ public class SecondMode extends JFrame implements ActionListener {
             }
         }
     }
-    public void InitBottons(){
+    public void InitButtons(){
         wordLabel.setText("等待服务器发送单词...");
         for (int i = 0; i < optionButtons.length; i++) {
             optionButtons[i].setText("选项 " + (char)('A' + i));
@@ -125,7 +136,6 @@ public class SecondMode extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        // 替换为服务器的实际地址和端口号
         new SecondMode("admin");
     }
 }

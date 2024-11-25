@@ -1,12 +1,14 @@
 package ModesAndServer;
 
 //合并设计方案
+import UI.JFrame_Design;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
 
-import static Tools.CountUserScore.saveUserData;
+import static Tools.CountUserNumber.saveUserData;
 
 public class FirstMode extends JFrame {
     private static final String SERVER_ADDRESS = "localhost";
@@ -47,7 +49,10 @@ public class FirstMode extends JFrame {
         add(scoreLabel);
         add(timerLabel);
         add(messageLabel);
+        this.setLayout(null);
+        this.setLocation(500, 300);
         this.setVisible(true);
+        this.getDefaultCloseOperation();
         answerField.addActionListener(e -> submitAnswer());
         timer = new Timer(1000, e -> updateTimer());
         connectToServer();
@@ -71,7 +76,8 @@ public class FirstMode extends JFrame {
             while ((line = in.readLine()) != null) {
                 if (line.equals("GAMEOVER")) {
                     JOptionPane.showMessageDialog(this, "游戏结束！");
-                    System.exit(0);
+                    setVisible(false);
+                    JFrame_Design.SelectMode();
                 }
                 String hint = in.readLine();
                 String finalLine = line;

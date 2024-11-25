@@ -1,7 +1,7 @@
 package testProject;
 
 import java.util.Map;
-import static Tools.CountUserScore.*;
+import static Tools.CountUserNumber.*;
 
 public class test1 {
     private static final String FILE_PATH = "src/Data/User_Score_Data.txt";
