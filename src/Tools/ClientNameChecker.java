@@ -1,18 +1,25 @@
 package Tools;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class ClientNameChecker {
         public boolean NameFlag=false;
         public Boolean IsDuplicate=false;
+        public Boolean IsNull=false;
         public ClientNameChecker(String username) {
         String filePath = "src/Data/UserName_data.txt";
         Set<String> uniqueNames = new HashSet<>();
-
+        if(username=="\n"|| Objects.equals(username, "")){
+            JOptionPane.showMessageDialog(null, "您什么都没有输入！");
+            IsNull=true;
+            return;
+        }
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath));) {
             String line;
             while ((line = reader.readLine()) != null) {

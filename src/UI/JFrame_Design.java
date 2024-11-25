@@ -29,7 +29,7 @@ public class JFrame_Design extends JFrame {
         cnc=new ClientNameChecker(nickName);
         if(cnc.NameFlag==true) {
             System.out.println("用户保留了名字:"+nickName);
-        }else if (cnc.IsDuplicate==true) {
+        }else if (cnc.IsDuplicate==true||cnc.IsNull==true) {
             nickName = JOptionPane.showInputDialog(this, "输入昵称");
             setNickName();
         }}
@@ -66,6 +66,7 @@ public class JFrame_Design extends JFrame {
             }
             else if (option == 4) {
                 System.out.println("选择了退出");
+                JOptionPane.showMessageDialog(null, "安全退出!\nMade by Tianlang\nVersion 0.1");
                 exit(0);
             }
     }}

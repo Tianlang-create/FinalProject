@@ -14,3 +14,11 @@ fill v.填满
 intervene v.干涉
 here adv.这里
 face-to-face adv.面对面地
+occasion n.场合
+tongue n.舌头
+wildlife n.野生动物
+respect n./v.尊敬;尊重
+ripe adj.成熟的
+young adj.年轻的
+reputation n.名誉
+technology n.科技

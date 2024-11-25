@@ -33,7 +33,7 @@ public class Function2_Server {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(":");
+                String[] parts = line.split(" ");
                 if (parts.length == 2) {
                     // 将单词数据存储到wordMap中
                     wordMap.put(parts[0].trim(), parts[1].trim());

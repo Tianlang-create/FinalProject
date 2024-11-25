@@ -49,7 +49,6 @@ public class FirstMode extends JFrame {
         add(scoreLabel);
         add(timerLabel);
         add(messageLabel);
-        this.setLayout(null);
         this.setLocation(500, 300);
         this.setVisible(true);
         this.getDefaultCloseOperation();

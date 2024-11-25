@@ -29,7 +29,7 @@ public class Function1_Server {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(":");
+                String[] parts = line.split(" ");
                 if (parts.length == 2) {
                     wordMap.put(parts[0].trim(), parts[1].trim());
                 }
