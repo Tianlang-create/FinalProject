@@ -18,7 +18,9 @@ public class SecondMode extends JFrame implements ActionListener {
     private JButton[] optionButtons = new JButton[4];
     private int currentScore = 0;
     private String correctAnswer = "";
-
+    public JLabel timerLabel;
+    public int timeLeft;
+    private Timer timer;
     private String nick="";
     public SecondMode(String nickname) {
         this.nick = nickname;
@@ -28,9 +30,11 @@ public class SecondMode extends JFrame implements ActionListener {
         setLayout(new BorderLayout());
 
         // 创建并设置UI组件
+
+        timerLabel = new JLabel("", SwingConstants.CENTER);
+        add(timerLabel, BorderLayout.SOUTH);
         wordLabel = new JLabel("等待服务器发送单词...", SwingConstants.CENTER);
         add(wordLabel, BorderLayout.NORTH);
-
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 4));
         for (int i = 0; i < optionButtons.length; i++) {
@@ -42,7 +46,7 @@ public class SecondMode extends JFrame implements ActionListener {
         }
         add(buttonPanel, BorderLayout.CENTER);
         this.getDefaultCloseOperation();
-
+        timer = new Timer(1000, e -> updateTimer());
         // 连接到服务器
         try {
             socket = new Socket("localhost", 5000);
@@ -55,6 +59,7 @@ public class SecondMode extends JFrame implements ActionListener {
                     while (true) {
                         String message = in.readLine();
                         if (message == null) break;
+                        timeStart();
                         handleMessage(message);
                     }
                 } catch (IOException e) {
@@ -75,6 +80,15 @@ public class SecondMode extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    private void updateTimer() {
+        timeLeft--;
+        timerLabel.setText("剩余时间: " + timeLeft + "秒");
+        if (timeLeft == 0) {
+            timer.stop();
+            out.println("");  // 发送空字符串表示超时
+        }
+    }
+
     private void handleMessage(String message) throws IOException {
         if (message.startsWith("CORRECT,")) {
             InitButtons();
@@ -82,18 +96,21 @@ public class SecondMode extends JFrame implements ActionListener {
             saveUserData(nick,1,"src/Data/User_Score_Data.txt");//统计用户回答数目
             currentScore = Integer.parseInt(parts[1]);
             JOptionPane.showMessageDialog(this, "回答正确！当前得分：" + currentScore);
+            timeStart();
         } else if (message.startsWith("TIMEOUT,")) {
             InitButtons();
             String[] parts = message.split(",");
             currentScore = Integer.parseInt(parts[1]);
             correctAnswer = parts[2];
             JOptionPane.showMessageDialog(this, "回答超时！正确答案：" + correctAnswer + "。当前得分：" + currentScore);
+            timeStart();
         } else if (message.startsWith("WRONG,")) {
             InitButtons();
             String[] parts = message.split(",");
             currentScore = Integer.parseInt(parts[1]);
             correctAnswer = parts[2];
             JOptionPane.showMessageDialog(this, "回答错误！正确答案：" + correctAnswer + "。当前得分：" + currentScore);
+            timeStart();
         } else if (!message.equals("GAMEOVER")) {
             // 这里处理服务器发送的单词和选项
             if (wordLabel.getText().equals("等待服务器发送单词...")) {
@@ -118,6 +135,12 @@ public class SecondMode extends JFrame implements ActionListener {
         }
     }
 
+    private void timeStart() {
+        timeLeft = 10;
+        timerLabel.setText("剩余时间: " + timeLeft + "秒");
+        timer.start();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < optionButtons.length; i++) {
@@ -129,6 +152,7 @@ public class SecondMode extends JFrame implements ActionListener {
         }
     }
     public void InitButtons(){
+        timer.stop();
         wordLabel.setText("等待服务器发送单词...");
         for (int i = 0; i < optionButtons.length; i++) {
             optionButtons[i].setText("选项 " + (char)('A' + i));

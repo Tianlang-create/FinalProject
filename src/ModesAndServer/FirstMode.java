@@ -121,7 +121,7 @@ public class FirstMode extends JFrame {
         answerField.setEnabled(false);
     }
 
-    private void updateTimer() {
+    public void updateTimer() {
         timeLeft--;
         timerLabel.setText("剩余时间: " + timeLeft + "秒");
         if (timeLeft == 0) {

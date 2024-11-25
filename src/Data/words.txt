@@ -78,10 +78,10 @@ admirable adj.令人钦佩的
 admire v.钦佩，羡慕
 admission n.准入，接纳
 admit v.承认，准许
-adolescent n.青少年 adj.青春期的
+adolescent n.青少年
 adopt v.采用，采纳
 adoption n.采用，采纳
-adult n.成年人 adj.成年的
+adult n.成年人
 advance v./n.前进;提高
 advanced adj.高级的;先进的
 advantage n.优点，优势
@@ -97,7 +97,7 @@ affect v.影响;感动
 affection n.喜爱，感情
 afford v.负担得起
 afraid adj.害怕的;担心的
-after prep.在...之后 adv.之后
+after prep.在...之后
 afternoon n.下午
 afterward adv.之后，后来
 again adv.再次，又
@@ -110,22 +110,22 @@ agree v.同意;一致
 agreement n.同意;协定
 agriculture n.农业;农艺
 ahead adv.在前面
-aid n.帮助;援助 v.帮助
-aim n.目的;目标 v.瞄准
-air n.空气;气氛 v.通风
+aid n.帮助;援助
+aim n.目的;目标
+air n.空气;气氛
 aircraft n.飞机，飞行器
 airline n.航空公司
 airport n.机场
-alarm n.警报;闹钟 v.使惊恐
+alarm n.警报;闹钟
 album n.集邮本;相册
-alcohol n.酒精，含酒精的饮料
+alcohol n.酒精
 alive adj.活着的;活跃的
-all adj.全部的 adv.全部地
+all adj.全部的
 allow v.允许;给予
 allowance n.津贴，补助
 almost adv.几乎，差不多
-alone adj.单独的 adv.独自地
-along adv.沿着 prep.一起
+alone adj.单独的
+along adv.沿着
 alongside adv./prep.沿着，并肩
 already adv.已经
 also adv.也，同样
@@ -155,13 +155,13 @@ ankle n.踝，踝关节
 announce v.宣布，宣告
 announcement n.通告，布告
 annoy v.使烦恼;打搅
-annual adj.每年的 n.年刊
+annual adj.每年的
 another adj.另一个的
-answer n.回答;答案 v.回答
+answer n.回答;答案
 anticipate v.预期，期待
 anxiety n.焦虑;渴望
 anxious adj.焦虑的;渴望的
-any adj.任何的 pron.任何
+any adj.任何的
 anybody pron.任何人
 anyhow adv.无论如何
 anyone pron.任何人
@@ -186,7 +186,7 @@ appoint v.任命;约定
 appointment n.任命;约定
 appreciate v.欣赏;感激
 appreciation n.欣赏;感激
-approach v.接近 n.途径
+approach v.接近
 appropriate adj.适当的;合适的
 approval n.赞成;批准
 approve v.赞成;批准
@@ -198,7 +198,7 @@ argue v.争论，争辩
 argument n.争论，辩论
 arise v.出现;由...引起
 arithmetic n.算术
-arm n.手臂;武器 v.武装
+arm n.手臂;武
 armed adj.武装的
 army n.军队
 around adv.在周围;大约
@@ -215,7 +215,7 @@ article n.文章;物品
 artificial adj.人造的;假的
 artist n.艺术家;画家
 artistic adj.艺术的;艺术家的
-as adv.像...一样 prep.作为
+as adv.像...一样
 ascertain v.确定;查明
 ashamed adj.羞愧的;惭愧的
 ashore adv.上岸;到岸
@@ -265,8 +265,8 @@ avenue n.林荫道;途径
 average n.平均数 adj.平均的
 avoid v.避免;避开
 await v.等候;期待
-awake adj.醒着的 v.唤醒
-award n.奖 v.授予
+awake adj.醒着的
+award n.奖
 aware adj.意识到的;知道的
 away adv.离开;远离
 awful adj.可怕的;糟糕的
@@ -274,9 +274,9 @@ awkward adj.尴尬的;笨拙的
 axe n.斧子
 axis n.轴;轴线
 bachelor n.单身汉;学士
-back adv.回原处;向后 n.背
+back adv.回原处;向后
 background n.背景;出身
-backward adv.向后地 adj.发展迟缓的
+backward adv.向后地
 bacon n.咸肉;腊肉
 bacterium n.细菌
 bad adj.坏的;低劣的
@@ -285,16 +285,16 @@ badminton n.羽毛球
 bag n.袋;包
 baggage n.行李
 bake v.烤，烘;烧硬
-balance n.天平;平衡 v.权衡
+balance n.天平;平衡
 balcony n.阳台;包厢
 ball n.球;舞会
 balloon n.气球;飞船
-ballot n.投票;抽签 v.投票
+ballot n.投票;抽签
 bamboo n.竹
-ban n.禁令 v.禁止;取缔
+ban v.禁止;取缔
 banana n.香蕉
 band n.乐队;带;帮
-bandage n.绷带 v.用绷带包扎
+bandage n.绷带
 bang n.巨响;猛击
 bank n.银行;岸
 banner n.旗帜;横幅
@@ -302,13 +302,13 @@ bar n.条;酒吧;条形
 barbecue n.烤肉;烤肉架
 barber n.理发师
 bare adj.赤裸的;无遮蔽的
-bargain n.便宜货 v.讨价还价
-bark n.树皮;狗叫 v.叫
+bargain n.便宜货
+bark n.树皮;狗叫
 barn n.谷仓;畜棚
 barrel n.桶;枪管
 barren adj.贫瘠的;不育的
 barrier n.障碍;屏障
-base n.基础;基地 v.基于
+base n.基础;基地
 baseball n.棒球
 basement n.地下室;地窖
 basic adj.基本的;基础的
@@ -322,15 +322,15 @@ bath n.洗澡;浴室
 bathe v.洗澡;弄湿
 bathroom n.浴室;盥洗室
 battery n.电池;排炮
-battle n.战斗;战役 v.战斗
+battle n.战斗;战役
 bay n.海湾;狗吠声
 be v.是;成为
 beach n.海滩;沙滩
-beam n.梁;笑容 v.发光
+beam n.梁;笑容
 bean n.豆;豆科植物
-bear n.熊 v.忍受;支撑
+bear n.熊
 beard n.胡须
-bearing n.支承;忍受
+bearing n.忍受
 beat v.打;打败 n.节拍
 beautiful adj.美丽的;出色的
 beauty n.美;美人
@@ -340,24 +340,24 @@ bed n.床;圃
 bee n.蜜蜂
 beef n.牛肉
 beer n.啤酒
-before prep.在...之前 adv.以前
+before prep.在...之前
 beg v.乞求;恳求
 begin v.开始
 beginning n.开始;开端
 behalf n.代表某人
 behave v.表现;（使）守规矩
 behavior n.行为;举止
-behind prep.在...后面 adv.在后面
+behind prep.在...后面
 being n.存在;生物
 belief n.信任;信念
 believe v.相信;认为
 bell n.钟;铃
 belong v.属于;附属
-beloved adj.亲爱的 n.爱人
-below prep.在...下面 adv.在下面
+beloved adj.亲爱的
+below prep.在...下面
 belt n.带;腰带;地带
-bench n.长凳;工作台
-bend v.弯曲;屈服 n.弯曲
+bench n.长凳;工作
+bend v.弯曲;屈服
 beneath prep.在...下方
 benefit n.利益;恩惠 v.有益于
 beside prep.在...旁边

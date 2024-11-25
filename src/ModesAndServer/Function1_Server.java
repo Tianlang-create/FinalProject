@@ -23,6 +23,7 @@ public class Function1_Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private static void loadWords(String filename) {
@@ -41,7 +42,6 @@ public class Function1_Server {
 
     class ClientHandler extends Thread {
         private Socket socket;
-
         public ClientHandler(Socket socket) {
             this.socket = socket;
         }

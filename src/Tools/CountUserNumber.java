@@ -39,29 +39,12 @@ public class CountUserNumber {
         return null;
     }
 
-    public static Map<String, Integer> readUserData() {
-        Map<String, Integer> userData = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    String userName = parts[0];
-                    int score = parseInt(parts[1]);
-                        userData.put(userName, score);
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading user data: " + e.getMessage());
-        }
-        return userData;
-    }
 
-    public static void printUserData(Map<String, Integer> userData) {
+   /* public static void printUserData(Map<String, Integer> userData) {
         for (Map.Entry<String, Integer> entry : userData.entrySet()) {
             System.out.println("用户名：" + entry.getKey() + ", 分数：" + entry.getValue());
         }
-    }
+    } */
 
     public static void updateScore(String userName, int newScore) {
         String FILE_NAME = "src/Data/User_Score_Data.txt";
