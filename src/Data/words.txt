@@ -403,12 +403,12 @@ board n.木板;委员会
 boast v.自夸;夸耀
 boat n.船;小船
 body n.身体;主体
-boil v.沸腾;汽化 n.沸腾
-bomb n.炸弹 v.轰炸
-bond n.债券;结合 v.结合
+boil v.沸腾;汽化
+bomb n.炸弹
+bond n.债券;结合
 bone n.骨头;骨骼
 bonus n.奖金;红利
-book n.书;本子 v.预定
+book n.书;本子
 boom n.繁荣;低沉的声音 v.急速发展
 boost v.促进;增加 n.推动
 boot n.靴;靴子
@@ -442,12 +442,12 @@ breakfast n.早餐
 breast n.胸;乳房
 breath n.呼吸;气息
 breathe v.呼吸
-breed v.繁殖;饲养 n.品种
+breed v.繁殖;饲养
 breeze n.微风;和风
 brick n.砖;砖块
 bride n.新娘
 bridge n.桥;桥牌
-brief adj.简短的 v.简短介绍
+brief adj.简短的
 bright adj.明亮的;聪明的
 brilliant adj.光辉的;杰出的
 brim n.边缘;帽沿
@@ -514,7 +514,7 @@ cart n.二轮运货马车
 cartoon n.卡通;动画片
 carve v.雕刻;切
 case n.情况;病例
-cash n.现金 v.兑现
+cash n.现金
 cashier n.出纳员
 casino n.赌场
 cast v.投掷;铸造
@@ -528,9 +528,9 @@ catch v.捕捉;赶上
 category n.种类;范畴
 cater v.迎合;满足
 cathedral n.大教堂
-Catholic adj.天主教的 n.天主教徒
+Catholic adj.天主教的
 cattle n.牛;牲畜
-cause n.原因;事业 v.引起
+cause n.原因;事业
 caution n.小心;警告
 cautious adj.谨慎的
 cave n.洞穴
@@ -543,12 +543,12 @@ cell n.细胞;电池;牢房
 cellar n.地下室;酒窖
 cement n.水泥;胶合剂
 cemetery n.墓地
-censor n.检查员 v.审查
+censor n.检查员
 census n.人口普查
 cent n.百;分
 centigrade n./adj.摄氏温度计（的）
 central adj.中央的;主要的
-centre n.中心 v.集中
+centre n.中心
 century n.世纪;百年
 ceremony n.典礼;仪式
 certain adj.确定的;某

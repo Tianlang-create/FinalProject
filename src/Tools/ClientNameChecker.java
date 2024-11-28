@@ -1,5 +1,4 @@
 package Tools;
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,6 +14,7 @@ public class ClientNameChecker {
         public ClientNameChecker(String username) {
         String filePath = "src/Data/UserName_data.txt";
         Set<String> uniqueNames = new HashSet<>();
+        //判断用户名是否重复
         if(username=="\n"|| Objects.equals(username, "")){
             JOptionPane.showMessageDialog(null, "您什么都没有输入！");
             IsNull=true;
