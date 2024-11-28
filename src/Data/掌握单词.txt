@@ -34,3 +34,7 @@ listen v.听;倾听
 systematic adj.系统的;有计划的
 death n.死;死亡
 news n.新闻;消息
+survival n.生存;幸存
+serve v.服务;服役
+warpath n.战争
+pan n.平底锅;盘
